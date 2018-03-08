@@ -2,6 +2,8 @@
 
 This is a mini abstraction for making request with redux. The lib will manage the 4 macro possibilities of `not-asked`, `loading`, `success`, and `failure` states.
 
+The request *states* (this lib calls them `status` or `statuses`) idea comes from [this blog post](http://blog.jenkster.com/2016/06/how-elm-slays-a-ui-antipattern.html).
+
 ## Example Usage
 
 #### createReduxRequest Example

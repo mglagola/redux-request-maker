@@ -8,8 +8,35 @@ The request *states* (this lib calls them `status` or `statuses`) idea comes fro
 
 We need to install `redux-request-maker` and `lodash` as `lodash` is a `peerDependency` of `redux-request-maker`.
 
-```
+```bash
 npm install --save redux-request-maker lodash
+```
+
+Configure store with `redux-request-maker` middleware.
+
+```diff
+// ./store/configure.js
+import { createStore, applyMiddleware, compose } from 'redux';
+import { middleware as reduxRequestMiddleware } from 'redux-request-maker';
++ import thunkMiddleware from 'redux-thunk';
+import createRootReducer from './reducers';
+
+const middleware = [
+    thunkMiddleware,
++    reduxRequestMiddleware,
+];
+
+const createStoreWithMiddleware = compose(
+    applyMiddleware(...middleware)
+)(createStore);
+
+function configureStore (initialState = {}) {
+    const reducers = createRootReducer(persistCombineReducers);
+    const store = createStoreWithMiddleware(reducers, initialState);
+    return store;
+};
+
+export default configureStore;
 ```
 
 ## Example Usage

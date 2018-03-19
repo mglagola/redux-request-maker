@@ -17,8 +17,8 @@ Configure store with `redux-request-maker` middleware.
 ```diff
 // ./store/configure.js
 import { createStore, applyMiddleware, compose } from 'redux';
-import { middleware as reduxRequestMiddleware } from 'redux-request-maker';
-+ import thunkMiddleware from 'redux-thunk';
++ import { middleware as reduxRequestMiddleware } from 'redux-request-maker';
+import thunkMiddleware from 'redux-thunk';
 import createRootReducer from './reducers';
 
 const middleware = [

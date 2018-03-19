@@ -1,14 +1,22 @@
 # Redux Request Maker
 
-This is a mini abstraction for making request with redux. The lib will manage the 4 macro possibilities of `not-asked`, `loading`, `success`, and `failure` states.
+This is a mini abstraction for making network requests with redux. The lib will manage the 4 high level state possibilities of networking requests, including `not-asked`, `loading`, `success`, and `failure` states.
 
 The request *states* (this lib calls them `status` or `statuses`) idea comes from [this blog post](http://blog.jenkster.com/2016/06/how-elm-slays-a-ui-antipattern.html).
+
+## Installation
+
+We need to install `redux-request-maker` and `lodash` as `lodash` is a `peerDependency` of `redux-request-maker`.
+
+```
+npm install --save redux-request-maker lodash
+```
 
 ## Example Usage
 
 #### createReduxRequest Example
 
-You would use `createReduxRequest` non collective result request.
+Use `createReduxRequest` non collective result request.
 
 ```js
 import { createReduxRequest } from 'redux-request-maker';
@@ -18,8 +26,8 @@ const {
     request,
     reducer,
 } = createReduxRequest({
-    actionTypePrefix: 'feed',
-    callAPI: () => xhr.get('/api/v1/currencies').then(res => res),
+    actionTypePrefix: 'fetch-feed',
+    callAPI: () => xhr.get('/api/v1/feed'),
 });
 
 export const fetchAllTickers = request;
@@ -28,7 +36,7 @@ export default reducer;
 
 #### createReduxCollRequest Example
 
-You would use `createReduxCollRequest` for the collective result request.
+Use `createReduxCollRequest` for the collective result request.
 
 ```js
 import { createReduxCollRequest } from 'redux-request-maker';
@@ -39,11 +47,10 @@ const {
     reducer,
     request,
 } = createReduxCollRequest({
-    actionTypePrefix: 'load-ticker-detail',
+    actionTypePrefix: 'fetch-item-detail',
     primaryKeyPath: ['slug'],
     callAPI: async ({ slug }) => {
-        const res = await xhr.get(`/api/v1/currencies/${slug}`);
-        return F.pathOr({}, ['result'], res);
+        return xhr.get(`/api/v1/item/${slug}`);
     },
 });
 

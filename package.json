@@ -1,6 +1,6 @@
 {
   "name": "redux-request-maker",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Mini abstraction for making network requests with redux.",
   "author": "Mark Glagola",
   "license": "MIT",
